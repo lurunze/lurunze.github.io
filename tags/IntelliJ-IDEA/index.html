@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Hexo</title>
+  <title>Tags - IntelliJ IDEA - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -42,7 +42,7 @@
 
 
 <body>
-  <header style="height: 100vh;">
+  <header style="height: 80vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -143,10 +143,6 @@
           </div>
 
           
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
-          
         </div>
       </div>
     </div>
@@ -156,138 +152,27 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          style=margin-top:0>
+          >
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-
-  <div class="row mx-auto index-card">
+<div class="list-group">
+  <p class="h4">1 posts in total.</p>
+  <hr>
+  
     
+      
+      <p class="h5">2020</p>
     
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/06/12/Spring%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%94%A8Date%E6%8E%A5%E6%94%B6%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98/">Spring后端项目用Date接收时间参数的问题</a>
-
-      <a href="/2020/06/12/Spring%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%94%A8Date%E6%8E%A5%E6%94%B6%E6%97%B6%E9%97%B4%E5%8F%82%E6%95%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="index-excerpt">
-        
-        
-          
-        
-        <div>问题描述在Spring后端用对象接受参数，如果POJO中包含Date类型的数据，会出去如下问题：
-
-前端传过来的格式为”yyyy-MM-dd”, 则接受到的时间会多8小时。
-前端传过来的格式为”yyyy-MM-dd HH:mm:ss”， 则会报非法参数异常。
-
-问题原因
-spring转json的默认实现jackson中会根据时区去转换时间，而jackson的默认时区跟 国内应该是相差8小时，所以再</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-06-12
-          </div>
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/06/11/Mybatis-association%E7%9A%84%E5%A4%9A%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8/">Mybatis association的嵌套select语句，某个参数不是数据表中的字段</a>
-
-      <a href="/2020/06/11/Mybatis-association%E7%9A%84%E5%A4%9A%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8/" class="index-excerpt">
-        
-        
-          
-        
-        <div>问题场景在使用Mysql association嵌套select语句时，遇到一个场景：select sql 中有两个参数，其中一个参数并不是数据表中一个字段。
-需求：在查询InventoryImprove的时候能够关联查询ProductLocation。
-BaseResultMap：
-&lt;resultMap id="BaseResultMap" type="com.leqee.wms.serv</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-06-11
-          </div>
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/06/02/%E8%AE%B0%E4%B8%80%E6%AC%A1-IntelliJ-IDEA-%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E9%9D%9E%E5%B8%B8%E6%85%A2%E7%9A%84%E5%9D%91/">记一次 IntelliJ IDEA 项目启动非常慢的坑</a>
-
-      <a href="/2020/06/02/%E8%AE%B0%E4%B8%80%E6%AC%A1-IntelliJ-IDEA-%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E9%9D%9E%E5%B8%B8%E6%85%A2%E7%9A%84%E5%9D%91/" class="index-excerpt">
-        
-        
-          
-        
-        <div>问题描述某次在使用 IntelliJ IDEA Debug 模式启动项目的时候，经过很久（半小时以上）也没有启动成功。
-问题原因后来发现是由于在方法签名上打了断点导致的。在这种情况下启动项目会提示：Method breakpoints may dramatically slow down debugging。
-解决方案去掉打在方法签名上的断点后，项目又能正常启动了。本以为只是会稍微慢点就没在意，没</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-06-02
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/IntelliJ-IDEA/">IntelliJ IDEA</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/05/31/hello-world/">Hello World</a>
-
-      <a href="/2020/05/31/hello-world/" class="index-excerpt">
-        
-        
-          
-        
-        <div>Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-05-31
-          </div>
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-
+    <a href="/2020/06/02/%E8%AE%B0%E4%B8%80%E6%AC%A1-IntelliJ-IDEA-%E9%A1%B9%E7%9B%AE%E5%90%AF%E5%8A%A8%E9%9D%9E%E5%B8%B8%E6%85%A2%E7%9A%84%E5%9D%91/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">记一次 IntelliJ IDEA 项目启动非常慢的坑</span>
+      <span style="float: right;">06-02</span>
+    </a>
+  
+</div>
 
 
 
@@ -380,7 +265,7 @@ Quick</div>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "An elegant Material-Design theme for Hexo&nbsp;",
+        "Tag - IntelliJ IDEA&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
