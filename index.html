@@ -200,6 +200,133 @@ spring转json的默认实现jackson中会根据时区去转换时间，而jackso
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/11/Mybatis-%E7%BC%93%E5%AD%98%E9%80%A0%E6%88%90%E7%9A%84%E5%9D%91/">Mybatis 缓存造成的坑</a>
+
+      <a href="/2020/06/11/Mybatis-%E7%BC%93%E5%AD%98%E9%80%A0%E6%88%90%E7%9A%84%E5%9D%91/" class="index-excerpt">
+        
+        
+          
+        
+        <div>在写代码的过程中发现：在一个事务中，如果同样的查询SQL执行了两次，并且这两次之间没有执行update。由于mybatis缓存的存在，第二次select的时候讲不会去查询数据库，而是直接返回第一次查询结果对象。
+实验
+测试代码1：
+
+@Test
+public void test() &#123;
+  OrderInfoDO orderInfoDO = orderInfoMapper.selectB</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-11
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/11/Mybatis-association%E5%B5%8C%E5%A5%97select%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%80%A7%E8%83%BD/">Mybatis association嵌套select语句的性能</a>
+
+      <a href="/2020/06/11/Mybatis-association%E5%B5%8C%E5%A5%97select%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%80%A7%E8%83%BD/" class="index-excerpt">
+        
+        
+          
+        
+        <div>嵌套select语句会带来n+1问题，降低程序的性能，但并有些情况下恰恰相反。由于Mybatis 缓存的存在，如果嵌套查询的数据量重复比例很大，反而会提高效率。
+实验内容通过嵌套sql语句和inner join的方式分别查询多个订单，并且关联查询货主和仓库。
+实验结果两种方式分别查询3次，取花费时间平均值。
+
+
+
+查询数据量/平均执行时间
+嵌套sql语句（ms）
+inner join方法（ms）
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-11
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/11/Java-8-stream-demo/">Java 8 语法 demo</a>
+
+      <a href="/2020/06/11/Java-8-stream-demo/" class="index-excerpt">
+        
+        
+          
+        
+        <div>1. list to list，取 list 中对象的某个属性，组成一个新的 listList&lt;Integer&gt; orderIds = orderInfoToReserveList.stream()
+  .map(OrderInfoDO::getOrderId)
+  .collect(Collectors.toList());
+
+2. list to map，value 为对象的 li</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-11
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/11/SQL%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98/">SQL优化实战（一）</a>
+
+      <a href="/2020/06/11/SQL%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98/" class="index-excerpt">
+        
+        
+          
+        
+        <div>实战1：
+SQL 功能：校验 inventory_summary.available_to_reserved 与相关的 inventory_item 的 available_to_reserved 之和是否存在差异。
+优化前 SQL：
+
+SELECT product_id productId, warehouse_id warehouseId, status, sum(stock_quantity</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-11
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/06/11/Mybatis-association%E7%9A%84%E5%A4%9A%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8/">Mybatis association的嵌套select语句，某个参数不是数据表中的字段</a>
 
       <a href="/2020/06/11/Mybatis-association%E7%9A%84%E5%A4%9A%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8/" class="index-excerpt">

@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Spring后端项目用Date接收时间参数的问题 - Hexo</title>
+  <title>Java 8 语法 demo - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-12 01:37">
-      June 12, 2020 am
+    <time datetime="2020-06-11 02:01">
+      June 11, 2020 am
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      179 字
+      201 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      3
        分钟
     </span>
   
@@ -204,20 +204,31 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>在Spring后端用对象接受参数，如果POJO中包含Date类型的数据，会出去如下问题：</p>
-<ul>
-<li>前端传过来的格式为”yyyy-MM-dd”, 则接受到的时间会多8小时。</li>
-<li>前端传过来的格式为”yyyy-MM-dd HH:mm:ss”， 则会报非法参数异常。</li>
-</ul>
-<h1 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h1><ul>
-<li>spring转json的默认实现jackson中会根据时区去转换时间，而jackson的默认时区跟 国内应该是相差8小时，所以再时间换算上自动加上了8小时。</li>
-<li>加上时分秒后无法转化为Date类型的数据。</li>
-</ul>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>  添加@DateTimeFormat注解</p>
-  <pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateVO</span> </span>&#123;
-  <span class="hljs-meta">@DateTimeFormat</span>(pattern=<span class="hljs-string">"yyyy-MM-dd HH:mm:ss"</span>)
-  <span class="hljs-keyword">private</span> Date date;
-&#125;</code></pre>
+              <h3 id="1-list-to-list，取-list-中对象的某个属性，组成一个新的-list"><a href="#1-list-to-list，取-list-中对象的某个属性，组成一个新的-list" class="headerlink" title="1. list to list，取 list 中对象的某个属性，组成一个新的 list"></a>1. list to list，取 list 中对象的某个属性，组成一个新的 list</h3><pre><code class="hljs java">List&lt;Integer&gt; orderIds = orderInfoToReserveList.stream()
+  .map(OrderInfoDO::getOrderId)
+  .collect(Collectors.toList());</code></pre>
+
+<h3 id="2-list-to-map，value-为对象的-list"><a href="#2-list-to-map，value-为对象的-list" class="headerlink" title="2. list to map，value 为对象的 list"></a>2. list to map，value 为对象的 list</h3><pre><code class="hljs java">Map&lt;String, List&lt;InventoryItemDO&gt;&gt; inventoryItemMap = inventoryItemDoList.stream()
+  .collect(Collectors
+           .groupingBy(ii -&gt; ii.getStatus().name() + <span class="hljs-string">"-"</span> + ii.getProductId());</code></pre>
+
+<h3 id="3-list-to-map，value-为-list-中的对象本身"><a href="#3-list-to-map，value-为-list-中的对象本身" class="headerlink" title="3. list to map，value 为 list 中的对象本身"></a>3. list to map，value 为 list 中的对象本身</h3><pre><code class="hljs java">Map&lt;Integer, InventorySummaryDO&gt; inventorySummaryDoMap = inventorySummaryDoList.stream()
+    .collect(Collectors
+             .toMap(InventorySummaryDO::getInventorySummaryId, Function.identity()));</code></pre>
+
+<h3 id="4-list-to-map，value-为-list-中对象某个属性的和"><a href="#4-list-to-map，value-为-list-中对象某个属性的和" class="headerlink" title="4. list to map，value 为 list 中对象某个属性的和"></a>4. list to map，value 为 list 中对象某个属性的和</h3><pre><code class="hljs java">Map&lt;String, Integer&gt; reserveSumMap = reserveOrderGoodsDtoList.stream()
+        .collect(Collectors
+                 .groupingBy(reserveOrderGoodsDTO -&gt; reserveOrderGoodsDTO.getStatusId().name() + <span class="hljs-string">"-"</span> + reserveOrderGoodsDTO.getProductId(), Collectors.summingInt(ReserveOrderGoodsDTO::getGoodsNumber)));</code></pre>
+
+<h3 id="5-list-to-map，value-为-list-中对象某个属性组成的-list"><a href="#5-list-to-map，value-为-list-中对象某个属性组成的-list" class="headerlink" title="5. list to map，value 为 list 中对象某个属性组成的 list"></a>5. list to map，value 为 list 中对象某个属性组成的 list</h3><pre><code class="hljs java">Map&lt;Integer, List&lt;String&gt;&gt; productSerialMap = inventorySerialDoList.stream()
+    .collect(Collectors
+             .groupingBy(InventorySerialDO::getProductId, Collectors.mapping(InventorySerialDO::getSerialNumber, Collectors.toList())));</code></pre>
+
+<h3 id="6-遍历map"><a href="#6-遍历map" class="headerlink" title="6. 遍历map"></a>6. 遍历map</h3><pre><code class="hljs java">updateProductLocationMap.forEach((k,v) -&gt; productLocationMapper.batchUpdateValidityStatus(k, v));</code></pre>
+
+<h3 id="7-对-list-中对象的某个属性求和"><a href="#7-对-list-中对象的某个属性求和" class="headerlink" title="7. 对 list 中对象的某个属性求和"></a>7. 对 list 中对象的某个属性求和</h3><pre><code class="hljs java">Integer sum = inventoryItemDoList.stream()
+  .mapToInt(InventoryItemDO::getAvailableToReserved)
+  .sum();</code></pre>
 
 
             </article>
@@ -235,12 +246,18 @@
                   <div class="post-prev col-6">
                     
                     
+                      <a href="/2020/06/11/Mybatis-association%E5%B5%8C%E5%A5%97select%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%80%A7%E8%83%BD/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mybatis association嵌套select语句的性能</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/11/Mybatis-%E7%BC%93%E5%AD%98%E9%80%A0%E6%88%90%E7%9A%84%E5%9D%91/">
-                        <span class="hidden-mobile">Mybatis 缓存造成的坑</span>
+                      <a href="/2020/06/11/SQL%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98/">
+                        <span class="hidden-mobile">SQL优化实战（一）</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -379,7 +396,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Spring后端项目用Date接收时间参数的问题&nbsp;",
+        "Java 8 语法 demo&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
