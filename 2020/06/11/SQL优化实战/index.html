@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      492 字
+      708 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      12
        分钟
     </span>
   
@@ -473,6 +473,51 @@
 </tbody></table>
 <ul>
 <li>优化思路：强制使用联合索引。</li>
+</ul>
+<h1 id="实战3："><a href="#实战3：" class="headerlink" title="实战3："></a>实战3：</h1><ul>
+<li>SQL 功能：查找未预定的订单（is_reserved = ‘N’ AND order_status = ‘ACCEPT’），并按 oms_order_status 排序。</li>
+<li>优化前SQL：</li>
+</ul>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> order_info
+<span class="hljs-keyword">force</span> <span class="hljs-keyword">index</span>(multi_order_info_key2)
+<span class="hljs-keyword">WHERE</span> (is_reserved = <span class="hljs-string">'N'</span>
+	<span class="hljs-keyword">AND</span> order_status = <span class="hljs-string">'ACCEPT'</span>
+	<span class="hljs-keyword">AND</span> order_type = <span class="hljs-string">'SALE'</span>
+	<span class="hljs-keyword">AND</span> customer_id = <span class="hljs-number">63</span>
+	<span class="hljs-keyword">AND</span> created_time &gt;= <span class="hljs-string">'2020-04-26 16:56:10.035'</span>)
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> oms_order_status
+<span class="hljs-keyword">LIMIT</span> <span class="hljs-number">10000</span>;</code></pre>
+
+<ul>
+<li><p>优化思路：在大促期间单量比较大的时候，ORDER BY 需要消耗比较多的性能。需求是优先查出非预售单（oms_order_status = ‘NORMAL’），如果数量不足10000，再查询非预售单。为了避免使用 ORDER BY，将以上 SQL 拆成 2 个 SQL，分别查寻预售单和非预售单。</p>
+</li>
+<li><p>优化后 SQL：</p>
+<pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> order_info
+<span class="hljs-keyword">force</span> <span class="hljs-keyword">index</span>(multi_order_info_key2)
+<span class="hljs-keyword">WHERE</span> (is_reserved = <span class="hljs-string">'N'</span>
+	<span class="hljs-keyword">AND</span> order_status = <span class="hljs-string">'ACCEPT'</span>
+	<span class="hljs-keyword">AND</span> order_type = <span class="hljs-string">'SALE'</span>
+	<span class="hljs-keyword">AND</span> customer_id = <span class="hljs-number">63</span>
+	<span class="hljs-keyword">AND</span> created_time &gt;= <span class="hljs-string">'2020-04-26 16:56:10.035'</span>)
+	<span class="hljs-keyword">AND</span> oms_order_status = <span class="hljs-string">'NORMAL'</span>
+<span class="hljs-keyword">LIMIT</span> <span class="hljs-number">10000</span>;
+
+<span class="hljs-keyword">SELECT</span> *
+<span class="hljs-keyword">FROM</span> order_info
+<span class="hljs-keyword">force</span> <span class="hljs-keyword">index</span>(multi_order_info_key2)
+<span class="hljs-keyword">WHERE</span> (is_reserved = <span class="hljs-string">'N'</span>
+	<span class="hljs-keyword">AND</span> order_status = <span class="hljs-string">'ACCEPT'</span>
+	<span class="hljs-keyword">AND</span> order_type = <span class="hljs-string">'SALE'</span>
+	<span class="hljs-keyword">AND</span> customer_id = <span class="hljs-number">63</span>
+	<span class="hljs-keyword">AND</span> created_time &gt;= <span class="hljs-string">'2020-04-26 16:56:10.035'</span>)
+	<span class="hljs-keyword">AND</span> oms_order_status != <span class="hljs-string">'NORMAL'</span>
+<span class="hljs-keyword">LIMIT</span> <span class="hljs-number">10000</span>;</code></pre>
+
+
+
+</li>
 </ul>
 
             </article>

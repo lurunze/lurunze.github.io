@@ -237,8 +237,8 @@ List&lt;AClass&gt; intersectResult = aClassList1.stream().filter(aClassList2::co
  
 <span class="hljs-comment">/*并集*/</span>
  List&lt;Integer&gt; productLocationIds = taskCountDoList.stream()
-    .map(TaskCountDO::getPlIds)
-    .flatMap(Collection::stream)
+      .map(TaskCountDO::getPlIds)
+      .flatMap(Collection::stream)
     .distinct()
     .collect(Collectors.toList());
  
